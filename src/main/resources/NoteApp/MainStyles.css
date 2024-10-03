@@ -1,0 +1,161 @@
+* {
+   -fx-main-dark: #2e2d2b;
+   -fx-main-light: #3b3a38;
+   -fx-main-contrast: white;
+
+   -fx-user-input-color: white;
+
+   -fx-cell-even: #807e7c;
+   -fx-cell-odd: #61605e;
+}
+
+.label {
+    -fx-text-fill: -fx-main-contrast;
+}
+
+.button {
+    -fx-background-color: -fx-main-light;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-width: 2px;
+    -fx-border-color: -fx-main-dark;
+
+    -fx-text-fill: -fx-main-contrast;
+    -fx-font-size: 14;
+}
+
+.text-area {
+    -fx-hgap: 4px;
+    -fx-padding: 4px;
+    -fx-background-color: -fx-main-light;
+    -fx-background-radius: 18px;
+
+    -fx-border-radius: 16px;
+    -fx-border-width: 2px;
+    -fx-border-color: -fx-main-dark;
+
+    -fx-text-fill: #ffffff;
+}
+
+.text-area:selected {
+    -fx-background-color: green;
+    -fx-border-width: 0px;
+}
+
+
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
+.text-area > .scroll-pane > .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8;
+}
+.text-area > .scroll-pane > .corner {
+    -fx-background-radius: 8;
+}
+
+
+.list-view {
+    -fx-background-color: -fx-main-dark;
+}
+
+.list-view .list-cell:even {
+    -fx-background-color: -fx-main-dark;
+    -fx-text-fill: -fx-main-contrast;
+}
+.list-view .list-cell:odd {
+   -fx-background-color: -fx-main-light;
+   -fx-text-fill: -fx-main-contrast;
+}
+
+.list-view .list-cell:even:selected {
+    -fx-background-color: -fx-cell-even;
+    -fx-text-fill: -fx-main-contrast;
+}
+.list-view .list-cell:odd:selected {
+   -fx-background-color: -fx-cell-odd;
+   -fx-text-fill: -fx-main-contrast;
+}
+
+.scroll-bar:horizontal,
+.scroll-bar:vertical {
+    -fx-color: -fx-main-contrast;
+    -fx-background-color: transparent;
+}
+
+.choice-box {
+  -fx-background-color: -fx-main-light;
+  -fx-mark-color: -fx-main-contrast;
+  -fx-border-color: -fx-main-dark;
+  -fx-border-width: 2;
+  -fx-border-radius: 8;
+}
+
+.choice-box .arrow {
+    -fx-background-color: -fx-main-contrast;
+}
+
+.choice-box > .label {
+    -fx-text-fill: -fx-main-contrast;
+}
+
+.choice-box .context-menu {
+    -fx-background-color: -fx-main-dark;
+}
+
+.choice-box .menu-item:focused {
+    -fx-background-color: -fx-main-light;
+}
+
+.choice-box .menu-item > .label {
+    -fx-text-fill: -fx-main-contrast;
+}
+
+
+.choice-box .left-container .radio {
+    -fx-background-color: -fx-main-contrast;
+}
+
+.text-field {
+    -fx-background-color: -fx-main-light;
+    -fx-text-fill: -fx-user-input-color;
+
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-border-color: -fx-main-dark;
+}
+
+.corner {
+    -fx-background-color: transparent;
+}
+
+
+.increment-button > .increment-arrow,
+.decrement-button > .decrement-arrow {
+    -fx-background-color: -fx-main-contrast;
+}
+
+
+.label {
+}
+
+.boost {
+    -fx-font-size: 14;
+}
+
+.big{
+    -fx-font-size: 16;
+}
+
+.bold {
+    -fx-font-weight: bold;
+}
+
+.align-center {
+    -fx-padding: 0 16 0 16;
+    -fx-alignment: center-left;
+}
