@@ -269,6 +269,7 @@ public class SharedNoteController {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String oldNoteTitle, String newNoteTitle) {
                 sectionControlBar.getChildren().clear();
+                System.out.println("Listener execute");
                 MainNotesPanel mainNotesPanelInstance = new MainNotesPanel();
                 mainNotesPanelInstance.setUpMainPanelView(thisInstance);
                 mainNotesPanelInstance.showSectionControlBar(thisInstance);

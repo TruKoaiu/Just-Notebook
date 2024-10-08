@@ -5,6 +5,7 @@ import TruKoaiu.SharedNoteController;
 import TruKoaiu.classes.Note;
 import TruKoaiu.classes.NoteCategory;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -57,6 +58,7 @@ public class AddNotesPanel {
         VBox.setVgrow(noteContent, Priority.ALWAYS);
 
         mainInstance.removeBaseItemListViewListener();
+        setAddPanelListener();
 
         mainPanel.getChildren().addAll(headerContainer, userInputElements, noteContent);
     }
@@ -68,13 +70,15 @@ public class AddNotesPanel {
         //Probably not needed to be here, but I will leave it here for now.
         Button add = new Button("Add");
         add.setOnAction(e -> tryAddingNote());
+        Button addClose = new Button("Add and close");
+        addClose.setOnAction(e -> addAndClose());
         Pane spacer = new Pane();
         spacer.setMinSize(10, 1);
         HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
         Button goBack = new Button("Go back");
         goBack.setOnAction(e -> clearPanels());
 
-        sectionControlBar.getChildren().addAll(add, spacer, goBack);
+        sectionControlBar.getChildren().addAll(add, addClose, spacer, goBack);
     }
 
     private void tryAddingNote() {
@@ -94,8 +98,10 @@ public class AddNotesPanel {
         insertNoteIntoDB();
         notes = SharedController.reloadNotes();
         mainInstance.setNotes(notes);
-        clearUserInput();
+        clearUserTestInput();
+        String selectedListCategory = mainInstance.getNoteCategoryChoiceBox().getValue().toString();
         mainInstance.reloadItemList();
+        mainInstance.getNoteCategoryChoiceBox().setValue(selectedListCategory);
     }
 
     private void insertNoteIntoDB() {
@@ -125,6 +131,16 @@ public class AddNotesPanel {
         String baseCategoryName = NoteCategory.getOtherGoalNoteCategory(noteCategories).getCategory();
         categoryPicker.setValue(baseCategoryName);
         noteContent.setText("");
+    }
+
+    private void clearUserTestInput() {
+        titleInput.setText("");
+        noteContent.setText("");
+    }
+
+    private void addAndClose() {
+        tryAddingNote();
+        clearPanels();
     }
 
     private GridPane createGridSetUp() {
@@ -261,7 +277,27 @@ public class AddNotesPanel {
         return headerContainer;
     }
 
+    private void setAddPanelListener() {
+        changeListener = new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldNoteTitle, String newNoteTitle) {
+                String selected = mainInstance.getItemListView().getSelectionModel().getSelectedItem().toString();
+                if (selected == null) {return;}
+                clearPanels();
+                mainInstance.getItemListView().getSelectionModel().select(selected);
+                MainNotesPanel mainNotesPanelInstance = new MainNotesPanel();
+                sectionControlBar.getChildren().clear();
+                mainNotesPanelInstance.setUpMainPanelView(mainInstance);
+                mainNotesPanelInstance.showSectionControlBar(mainInstance);
+            }
+        };
+
+        mainInstance.getItemListView().getSelectionModel().selectedItemProperty().addListener(changeListener);
+    }
+
     private void clearPanels() {
+        mainInstance.getItemListView().getSelectionModel().selectedItemProperty().removeListener(changeListener);
+
         sectionControlBar.getChildren().clear();
         mainPanel.getChildren().clear();
         mainInstance.getItemListView().getSelectionModel().clearSelection();
