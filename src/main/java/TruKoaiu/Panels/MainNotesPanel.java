@@ -160,11 +160,16 @@ public class MainNotesPanel {
             throw new RuntimeException(event);
         }
 
+        String selectedCategory = mainInstance.getNoteCategoryChoiceBox().getValue().toString();
+        if (selectedCategory == null) {
+            selectedCategory = NoteCategory.getAllGoalNoteCategory(noteCategories).getCategory();
+        }
         delete.setText("Delete");
         mainInstance.setNotes(SharedController.reloadNotes());
         notes = mainInstance.getNotes();
         mainInstance.reloadItemList();
         clearPanels();
+        mainInstance.getNoteCategoryChoiceBox().setValue(selectedCategory);
 
         ListView itemListView = mainInstance.getItemListView();
         if (!itemListView.getItems().isEmpty()) {
