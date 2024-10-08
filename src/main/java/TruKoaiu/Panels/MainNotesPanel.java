@@ -177,21 +177,26 @@ public class MainNotesPanel {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String oldNoteTitle, String newNoteTitle) {
                 Note selectedNote = SharedController.findNoteByTitle(notes, newNoteTitle);
-                if (selectedNote == null) {
-                    return;
-                }
 
-                title.setText(newNoteTitle);
-                category.setText(selectedNote.getCategory());
-                date.setText(selectedNote.getDate());
-                noteContent.setText(selectedNote.getContent());
-
-                if (delete.getText().equals("Confirm?")) {
-                    delete.setText("Delete");
-                }
+                showPanelInfo(selectedNote);
             }
         };
         mainInstance.getItemListView().getSelectionModel().selectedItemProperty().addListener(changeListener);
+    }
+
+    private void showPanelInfo(Note targetNote) {
+        if (targetNote == null) {
+            return;
+        }
+
+        title.setText(targetNote.getTitle());
+        category.setText(targetNote.getCategory());
+        date.setText(targetNote.getDate());
+        noteContent.setText(targetNote.getContent());
+
+        if (delete.getText().equals("Confirm?")) {
+            delete.setText("Delete");
+        }
     }
 
     private void clearPanels() {
