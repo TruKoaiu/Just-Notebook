@@ -74,13 +74,16 @@ public class EditNotesPanel {
         //Probably not needed to be here, but I will leave it here for now.
         Button add = new Button("Save Changes");
         add.setOnAction(e -> editButtonFunctionality());
+        Button editAndClose = new Button("Save and close");
+        editAndClose.setOnAction(e -> editAndClose());
+
         Pane spacer = new Pane();
         spacer.setMinSize(10, 1);
         HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
         Button goBack = new Button("Go back");
         goBack.setOnAction(e -> clearPanels());
 
-        sectionControlBar.getChildren().addAll(add, spacer, goBack);
+        sectionControlBar.getChildren().addAll(add, editAndClose, spacer, goBack);
     }
 
     private void editButtonFunctionality() {
@@ -136,6 +139,11 @@ public class EditNotesPanel {
             System.out.println("The connection failed");
             event.printStackTrace();
         }
+    }
+
+    private void editAndClose() {
+        editButtonFunctionality();
+        clearPanels();
     }
 
     private GridPane createGridSetUp() {
